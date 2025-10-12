@@ -22,7 +22,7 @@ Introduced in *Angelakis et al., 2025 (in review, THe Lancet Digital Health)*.
 
 ---
 
-## ⚙️ Usage
+## Usage
 ```bash
 # Clone the repository
 git clone https://github.com/Bluesman79/ZACH-ViT.git
