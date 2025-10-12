@@ -1,26 +1,33 @@
-# ZACH-ViT: A Zero-Token Adaptive Compact Hierarchical Vision Transformer
+# ZACH-ViT: A Zero-Token Vision Transformer with ShuffleStrides Data Augmentation (SSDA)
 
 Official implementation of **ZACH-ViT**, a lightweight Vision Transformer for robust classification of lung ultrasound videos.  
-Introduced in *Angelakis et al., 2025 (in review, THe Lancet Digital Health)*.
+Introduced in *Angelakis et al., 2025 (in review, The Lancet Digital Health)*.
 
 ---
 
-## Overview
+## 📘 Overview
+
 **ZACH-ViT** redefines Vision Transformer design for small, heterogeneous medical datasets.
 
-- No positional embeddings or class tokens  
-- Dynamic adaptive residuals for stable feature learning  
-- Global pooling for order-agnostic representations  
-- **ShuffleStrides Data Augmentation (SSDA)**: structured permutation-based augmentation preserving clinical plausibility  
-
-| Model               | Parameters (M) | Validation AUC | Test AUC | Sensitivity | Specificity |
-| ------------------- | -------------- | -------------- | -------- | ----------- | ----------- |
-| **ZACH-ViT (ours)** | **0.25**       | **0.80**       | **0.79** | 0.60        | 0.91        |
-| Standard ViT        | 0.62           | 0.58           | 0.54     | 0.10        | 0.97        |
-| ResNet50            | 23.8           | 0.65           | 0.54     | 0.05        | 0.94        |
-| DenseNet121         | 7.17           | 0.64           | 0.53     | 0.05        | 0.95        |
+- ❌ No positional embeddings or class tokens  
+- ⚙️ Dynamic adaptive residuals for stable feature learning  
+- 🌍 Global pooling for order-agnostic representations  
+- 🔄 **ShuffleStrides Data Augmentation (SSDA):** permutation-based semi-supervised augmentation preserving clinical plausibility  
 
 ---
+
+## 🧠 Pipeline
+
+This repository provides a full reproducible preprocessing and training pipeline:
+
+1. **ROI extraction** from TALOS DICOM ultrasound recordings  
+2. **VIS (Video Image Sequence)** image generation  
+3. **ShuffleStrides semi-supervised data augmentation (SSDA)**  
+4. **ZACH-ViT** model training and evaluation  
+
+Each numbered Jupyter notebook (`01_`–`05_`) corresponds to a stage of the pipeline.
+
+
 
 ## Usage
 ```bash
