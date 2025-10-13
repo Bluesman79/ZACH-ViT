@@ -1,0 +1,23 @@
+ZACH-ViT Environment Report
+========================================
+Run time: 2025-10-13 23:43:13.600515
+Python: 3.10.16
+Platform: Linux 5.15.0-67-generic (x86_64)
+CPU cores: 32
+Processor: x86_64
+
+TensorFlow: 2.19.0
+Keras: 3.5.0
+GPU info:
+  GPU 0: NVIDIA GeForce RTX 3060
+
+Package versions:
+numpy: 1.26.4
+pandas: 2.3.2
+matplotlib: 3.10.5
+pydicom: 3.0.1
+skimage: 0.20.0
+PIL: 11.3.0
+tensorflow: 2.19.0
+scikit-learn: 1.7.1
+IPython: 8.20.0
