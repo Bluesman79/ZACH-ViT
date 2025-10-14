@@ -1,68 +1,64 @@
 #!/usr/bin/env python3
-"""
-ZACH-ViT: Command-line interface for model training and evaluation.
-This script wraps the run_zach_vit_time() pipeline.
-"""
+# ================================================================
+# ZACH-ViT: CLI Trainer
+# ================================================================
+# Trains and evaluates the ZACH-ViT model directly from the terminal.
+# Usage:
+#   zachvit-train --base_dir ../Data --epochs 23 --batch_size 16 --threshold 53
+# ================================================================
 
 import argparse
-from zachvit.model_utils import run_zach_vit_time
+from zachvit.zachvit_model_utils import run_zach_vit_time
 
 
 def main():
     parser = argparse.ArgumentParser(
-        description="Train and evaluate the ZACH-ViT model on VIS / SSDA datasets."
-    )
-
-    parser.add_argument(
-        "--base_dir",
-        type=str,
-        default="../Data/",
-        help="Base directory containing train/val/test folders."
+        description="Train and evaluate the ZACH-ViT model."
     )
     parser.add_argument(
-        "--batch_size",
-        type=int,
-        default=16,
-        help="Batch size for training."
+        "--base_dir", required=True,
+        help="Base directory containing the train/val/test subdirectories."
     )
     parser.add_argument(
-        "--epochs",
-        type=int,
-        default=23,
-        help="Number of training epochs."
+        "--epochs", type=int, default=23,
+        help="Number of training epochs (default: 23)."
     )
     parser.add_argument(
-        "--threshold",
-        type=int,
-        default=53,
-        help="Pixel threshold (0–255) below which grayscale values are set to zero."
+        "--batch_size", type=int, default=16,
+        help="Batch size for training and evaluation (default: 16)."
     )
     parser.add_argument(
-        "--class_weights",
-        type=float,
-        nargs=2,
-        default=None,
-        metavar=("W0", "W1"),
-        help="Optional class weights for imbalanced training, e.g. --class_weights 0.3 0.7"
+        "--threshold", type=int, default=53,
+        help="Pixel intensity threshold for preprocessing (default: 53)."
+    )
+    parser.add_argument(
+        "--class_weights", type=float, nargs=2, default=None,
+        help="Optional class weights (e.g. --class_weights 1.0 1.5)"
     )
 
     args = parser.parse_args()
 
-    # Convert class_weights into dict format if provided
-    cw = None
-    if args.class_weights:
-        cw = {0: args.class_weights[0], 1: args.class_weights[1]}
+    print("🚀 Starting ZACH-ViT training...")
+    print(f"Base directory: {args.base_dir}")
+    print(f"Epochs: {args.epochs}, Batch size: {args.batch_size}, Threshold: {args.threshold}")
 
-    print("\n🚀 Starting ZACH-ViT training ...\n")
+    # Convert class weights if provided
+    class_weights = None
+    if args.class_weights:
+        class_weights = {0: args.class_weights[0], 1: args.class_weights[1]}
+        print(f"Using class weights: {class_weights}")
+
+    # Run training
     model, val_df, test_df = run_zach_vit_time(
         batch_size=args.batch_size,
         epochs=args.epochs,
         threshold=args.threshold,
-        class_weights=cw,
-        base_dir=args.base_dir
+        class_weights=class_weights,
+        base_dir=args.base_dir,
     )
 
-    print("\n✅ Training complete. Metrics saved.\n")
+    print("✅ Training completed successfully!")
+    print(f"Validation samples: {len(val_df)}, Test samples: {len(test_df)}")
 
 
 if __name__ == "__main__":
