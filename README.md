@@ -73,16 +73,9 @@ The `../Data` directory evolves from raw patient data to fully structured traini
 - All training curves from the ZACH-ViT notebook are automatically saved in `../Data/imgs/` with a date-time prefix (e.g., `ZACH_ViT_training_20251014_183502.png`).
 ---
 
-## 🚀 Usage
+## ⚙️ Installation
 
-```bash
-# Clone the repository and Install Dependencies
-git clone https://github.com/Bluesman79/ZACH-ViT.git
-cd ZACH-ViT
-
-# Install dependencies
-pip install -r requirements.txt
-```
+ZACH-ViT provides both Jupyter notebook and Command-Line Interface (CLI) execution for full reproducibility.
 
 ## 📓 Using Jupyter Notebooks
 1. Run Preprocessing
@@ -101,13 +94,102 @@ pip install -r requirements.txt
    * Report training/inference times
    * Save learning curves automatically in `../Data/imgs/`
 
-## 💻 Using Terminal (Pure Python Scripts)
+## 💻 Using CLI
 ```bash
-# Run preprocessing (example)
-python preprocessing/preprocess_pipeline.py
+# Clone the repository
+git clone https://github.com/Bluesman79/ZACH-ViT.git
+cd ZACH-ViT
 
-# Train and evaluate ZACH-ViT
-python training/zach_vit_train.py
+# (Optional) Create a clean virtual environment
+python -m venv venv
+source venv/bin/activate   # On Windows: venv\Scripts\activate
+
+# Install in editable/development mode
+pip install -e .
+
+# Verify installation
+python -c 'import zachvit; print("✅ ZACH-ViT installed successfully!")'
+```
+
+This installs two CLI tools globally in the environment:
+* `zachvit-preprocess`: runs the entire preprocessing and data augmentation pipeline
+* `zachvit-train`: runs training and evaluation of the ZACH-ViT model
+
+
+## 🧩 CLI Usage
+### 🧠 Preprocessing Pipeline
+
+The preprocessing CLI `zachvit-preprocess` automatically runs all four modules:
+
+1. ROI extraction and height compression
+2. VIS (Video Image Sequence) creation
+3. 0-SSDA (stride permutation augmentation)
+4. SSDAₚ (semi-supervised prime-based augmentation)
+   
+**Example**
+```bash
+zachvit-preprocess \
+  --talos_path ../Data/TALOS \
+  --output_dir ../Data \
+  --patient_start 100 \
+  --patient_end 122 \
+  --primes 2 3
+```
+
+| Argument          | Description                                                                                    |
+| ----------------- | ---------------------------------------------------------------------------------------------- |
+| `--talos_path`    | Path to folder containing raw TALOS DICOM patient directories (`TALOS100/`, `TALOS122/`, etc.) |
+| `--output_dir`    | Base directory where all processed data will be saved (`../Data/`)                             |
+| `--patient_start` | Starting patient ID (inclusive)                                                                |
+| `--patient_end`   | Ending patient ID (inclusive)                                                                  |
+| `--primes`        | (Optional) Prime numbers for SSDAₚ augmentation seeds — default: `2 3`                         |
+
+The CLI will automatically generate:
+```bash
+../Data/
+├── Processed_ROI/
+├── VIS/
+├── 0_SSDA/
+├── 2_3_SSDA/
+└── imgs/           # Training curves and logs
+```
+
+### 🧩 Training ZACH-ViT
+
+The training CLI `zachvit-train` runs end-to-end training, validation, and testing of ZACH-ViT on the prepared datasets.
+It also reports total training time, mean inference time per batch, and saves ROC-AUC/accuracy curves automatically.
+
+**Example**
+```bash
+zachvit-train \
+  --base_dir ../Data \
+  --epochs 23 \
+  --batch_size 16 \
+  --threshold 53
+```
+
+| Argument       | Description                                                             |
+| -------------- | ----------------------------------------------------------------------- |
+| `--base_dir`   | Root data directory containing `train/`, `val/`, and `test/` subfolders |
+| `--epochs`     | Number of training epochs (default: 23)                                 |
+| `--batch_size` | Batch size for training (default: 128)                                  |
+| `--threshold`  | Intensity threshold (0–255) for background removal (default: 93)        |
+
+### 📊 Output
+
+After training:
+
+* All performance plots (loss, accuracy, AUC) are saved in ../Data/imgs/
+* Model metrics (AUC, sensitivity, specificity, F1-score) are printed at the end
+* Inference time (validation/test) and average epoch duration are reported
+
+### 💡 Example Workflow
+```bash
+# Step 1: Run preprocessing
+zachvit-preprocess --talos_path ../Data/TALOS --output_dir ../Data --patient_start 100 --patient_end 122 --primes 2 3
+
+# Step 2: Train and evaluate ZACH-ViT
+zachvit-train --base_dir ../Data --epochs 23 --batch_size 16 --threshold 53
 ```
 
 Both scripts mirror the logic of the notebooks and save identical output structures.
