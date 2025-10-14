@@ -166,14 +166,16 @@ zachvit-train \
   --epochs 23 \
   --batch_size 16 \
   --threshold 53
+  --class_weights 1.0 2.5
 ```
 
-| Argument       | Description                                                             |
-| -------------- | ----------------------------------------------------------------------- |
-| `--base_dir`   | Root data directory containing `train/`, `val/`, and `test/` subfolders |
-| `--epochs`     | Number of training epochs (default: 23)                                 |
-| `--batch_size` | Batch size for training (default: 128)                                  |
-| `--threshold`  | Intensity threshold (0–255) for background removal (default: 93)        |
+| Argument          | Description                                                                |
+| ----------------- | -------------------------------------------------------------------------- |
+| `--base_dir`      | Root data directory containing `train/`, `val/`, and `test/`               |
+| `--epochs`        | Number of training epochs (default: 23)                                    |
+| `--batch_size`    | Batch size for training (default: 16)                                      |
+| `--threshold`     | Intensity threshold (0–255) for background removal (default: 53)           |
+| `--class_weights` | Optional class weights for labels 0 and 1 (e.g. `--class_weights 1.0 2.5`) |
 
 ### 📊 Output
 
