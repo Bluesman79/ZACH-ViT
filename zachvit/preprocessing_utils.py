@@ -168,3 +168,100 @@ def run_full_preprocessing_pipeline():
         construct_vis_for_patient(pid)
         create_permuted_vis(pid)
         create_permuted_vis_with_frame_shuffling(pid)
+
+
+# ================================================================
+# Wrapper: full preprocessing pipeline
+# ================================================================
+def run_full_preprocessing_pipeline(
+    talos_path="../Data/TALOS",
+    output_dir_roi="../Data/Processed_ROI",
+    output_dir_vis="../Data/VIS",
+    output_dir_0_ssda="../Data/0_SSDA",
+    prime_seeds=[2, 3],
+    patient_range=(100, 122),
+    num_positions=4
+):
+    """
+    Runs all four preprocessing modules sequentially:
+    1. ROI extraction
+    2. VIS construction
+    3. 0-SSDA
+    4. SSDA_p (prime-seeded)
+    """
+    import time, os
+    global TALOS_PATH, OUTPUT_DIR_ROI, OUTPUT_DIR_VIS, OUTPUT_DIR_0_SSDA, OUTPUT_DIR_MAIN
+    global INPUT_ROOT, PRIME_SEEDS, NUM_POSITIONS, PATIENT_RANGE
+
+    TALOS_PATH = talos_path if talos_path.endswith("/") else talos_path + "/"
+    OUTPUT_DIR_ROI = output_dir_roi
+    OUTPUT_DIR_VIS = output_dir_vis
+    OUTPUT_DIR_0_SSDA = output_dir_0_ssda
+    PRIME_SEEDS = prime_seeds
+    PATIENT_RANGE = range(patient_range[0], patient_range[1] + 1)
+    NUM_POSITIONS = num_positions
+
+    os.makedirs(OUTPUT_DIR_ROI, exist_ok=True)
+    os.makedirs(OUTPUT_DIR_VIS, exist_ok=True)
+    os.makedirs(OUTPUT_DIR_0_SSDA, exist_ok=True)
+
+    print(f"\n🩺 ZACH-ViT Preprocessing for {len(PATIENT_RANGE)} patients\n")
+
+    # ------------------------------
+    # 1️⃣ ROI Extraction
+    # ------------------------------
+    print("=== 1st Module: ROI Extraction ===")
+    ts1 = time.time()
+    for pid in PATIENT_RANGE:
+        for pos in range(1, NUM_POSITIONS + 1):
+            try:
+                process_dicom(pid, pos)
+            except Exception as e:
+                print(f"⚠️ Skipping patient {pid}, position {pos}: {e}")
+    te1 = time.time()
+    print(f"Time for ROI Extraction: {round(te1 - ts1, 2)}s\n")
+
+    time.sleep(3)
+
+    # ------------------------------
+    # 2️⃣ VIS Construction
+    # ------------------------------
+    print("=== 2nd Module: VIS Construction ===")
+    INPUT_ROOT = OUTPUT_DIR_ROI
+    ts2 = time.time()
+    for pid in PATIENT_RANGE:
+        construct_vis_for_patient(pid)
+    te2 = time.time()
+    print(f"Time for VIS: {round(te2 - ts2, 2)}s\n")
+
+    time.sleep(3)
+
+    # ------------------------------
+    # 3️⃣ 0-SSDA
+    # ------------------------------
+    print("=== 3rd Module: ShuffleStrides (0-SSDA) ===")
+    INPUT_ROOT = OUTPUT_DIR_ROI
+    ts3 = time.time()
+    for pid in PATIENT_RANGE:
+        create_permuted_vis(pid)
+    te3 = time.time()
+    print(f"Time for 0-SSDA: {round(te3 - ts3, 2)}s\n")
+
+    time.sleep(3)
+
+    # ------------------------------
+    # 4️⃣ SSDA_p (Prime-seeded)
+    # ------------------------------
+    print("=== 4th Module: SSDA_p ===")
+    INPUT_ROOT = OUTPUT_DIR_ROI
+    OUTPUT_DIR_MAIN = os.path.join("../Data", "_".join(str(p) for p in PRIME_SEEDS) + "_SSDA")
+    os.makedirs(OUTPUT_DIR_MAIN, exist_ok=True)
+    for prime in PRIME_SEEDS:
+        os.makedirs(os.path.join(OUTPUT_DIR_MAIN, f"p{prime}"), exist_ok=True)
+    ts4 = time.time()
+    for pid in PATIENT_RANGE:
+        create_permuted_vis_with_frame_shuffling(pid)
+    te4 = time.time()
+
+    print(f"Time for SSDA_p: {round(te4 - ts4, 2)}s")
+    print(f"✅ Total preprocessing time: {round(te4 - ts1, 2)}s\n")
