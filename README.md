@@ -191,7 +191,8 @@ After training:
 zachvit-preprocess --talos_path ../Data/TALOS --output_dir ../Data --patient_start 100 --patient_end 122 --primes 2 3
 
 # Step 2: Train and evaluate ZACH-ViT
-zachvit-train --base_dir ../Data --epochs 23 --batch_size 16 --threshold 53
+zachvit-train --base_dir ../Data --epochs 23 --batch_size 16 --threshold 53 --class_weights 1.0 2.5
+
 ```
 
 Both scripts mirror the logic of the notebooks and save identical output structures.
