@@ -30,10 +30,20 @@ setup(
     },
     python_requires=">=3.10",
     classifiers=[
-        "Programming Language :: Python :: 3.10",
+        "Programming Language :: Python :: 3",
         "License :: OSI Approved :: Apache Software License",
-        "Operating System :: POSIX :: Linux",
+        "Operating System :: OS Independent",
         "Topic :: Scientific/Engineering :: Artificial Intelligence",
+        "Topic :: Scientific/Engineering :: Medical Science Apps.",
         "Intended Audience :: Science/Research",
+    ],
+    keywords=[
+        "vision transformer",
+        "medical imaging",
+        "ultrasound",
+        "explainable AI",
+        "deep learning",
+        "lung ultrasound",
+        "computer vision",
     ],
 )
