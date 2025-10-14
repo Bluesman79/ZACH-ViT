@@ -1,0 +1,39 @@
+from setuptools import setup, find_packages
+
+setup(
+    name="zachvit",
+    version="1.0.0",
+    author="Athanasios Angelakis",
+    author_email="ath.angelakis@gmail.com",
+    description="ZACH-ViT: Zero-Token Adaptive Compact Hierarchical Vision Transformer with ShuffleStrides Data Augmentation (SSDA)",
+    long_description=open("README.md").read(),
+    long_description_content_type="text/markdown",
+    license="Apache 2.0",
+    packages=find_packages(),
+    install_requires=[
+        "tensorflow==2.19.0",
+        "keras==3.5.0",
+        "numpy==1.26.4",
+        "pandas==2.3.2",
+        "matplotlib==3.10.5",
+        "pydicom==3.0.1",
+        "scikit-image==0.20.0",
+        "Pillow==11.3.0",
+        "scikit-learn==1.7.1",
+        "IPython==8.20.0",
+    ],
+    entry_points={
+        "console_scripts": [
+            "zachvit-preprocess=scripts.preprocess_cli:main",
+            "zachvit-train=scripts.train_zachvit_cli:main",
+        ],
+    },
+    python_requires=">=3.10",
+    classifiers=[
+        "Programming Language :: Python :: 3.10",
+        "License :: OSI Approved :: Apache Software License",
+        "Operating System :: POSIX :: Linux",
+        "Topic :: Scientific/Engineering :: Artificial Intelligence",
+        "Intended Audience :: Science/Research",
+    ],
+)
