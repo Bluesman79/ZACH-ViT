@@ -1,3 +1,4 @@
+[![PyPI version](https://img.shields.io/pypi/v/zachvit.svg)](https://pypi.org/project/zachvit/)
 [![arXiv](https://img.shields.io/badge/arXiv-2510.17650-b31b1b.svg)](https://arxiv.org/abs/2510.17650)
 [![DOI](https://img.shields.io/badge/DOI-10.48550%2FarXiv.2510.17650-blue)](https://doi.org/10.48550/arXiv.2510.17650)
 
