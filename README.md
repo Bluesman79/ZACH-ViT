@@ -1,3 +1,6 @@
+[![arXiv](https://img.shields.io/badge/arXiv-2510.17650-b31b1b.svg)](https://arxiv.org/abs/2510.17650)
+[![DOI](https://img.shields.io/badge/DOI-10.48550%2FarXiv.2510.17650-blue)](https://doi.org/10.48550/arXiv.2510.17650)
+
 # 🧩 ZACH-ViT: Zero-Token Adaptive Compact Hierarchical Vision Transformer with ShuffleStrides Data Augmentation (SSDA)
 
 Official implementation of **ZACH-ViT**, a lightweight Vision Transformer for robust classification of lung ultrasound videos, and the **ShuffleStrides Data Augmentation (SSDA)** algorithm.  
