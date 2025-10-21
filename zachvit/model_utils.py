@@ -3,8 +3,8 @@ ZACH-ViT: Zero-Token Adaptive Compact Hierarchical Vision Transformer
 with ShuffleStrides Data Augmentation (SSDA)
 Author: Athanasios Angelakis
 License: Apache 2.0
-Date: 2025-10-13
-Paper: https://arxiv.org/abs/XXXX.XXXXX
+Date: 2025-10-21
+Paper: https://arxiv.org/abs/2510.17650
 """
 
 import os, time, warnings
