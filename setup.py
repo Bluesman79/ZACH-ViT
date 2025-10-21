@@ -1,14 +1,19 @@
 from setuptools import setup, find_packages
 
 setup(
-    name="zachvit",
+  name="zachvit",
     version="1.0.0",
     author="Athanasios Angelakis",
-    author_email="ath.angelakis@gmail.com",
-    description="ZACH-ViT: Zero-Token Adaptive Compact Hierarchical Vision Transformer with ShuffleStrides Data Augmentation (SSDA)",
+    author_email="angelakis.athanasios@gmail.com",
+    description="Official implementation of ZACH-ViT: Zero-Token Adaptive Compact Hierarchical Vision Transformer with ShuffleStrides Data Augmentation (SSDA).",
     long_description=open("README.md").read(),
     long_description_content_type="text/markdown",
-    license="Apache 2.0",
+    url="https://github.com/Bluesman79/ZACH-ViT",
+    project_urls={
+        "Paper": "https://arxiv.org/abs/2510.17650",
+        "DOI": "https://doi.org/10.48550/arXiv.2510.17650",
+    },
+    license="Apache-2.0",
     packages=find_packages(),
     install_requires=[
         "tensorflow==2.19.0",
