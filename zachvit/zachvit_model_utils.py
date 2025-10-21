@@ -1,10 +1,10 @@
 # ==============================
 # ZACH-ViT: Zero-token Adaptive Compact Hierarchical Vision Transformer for Lung Ultrasound
-# Paper: https://arxiv.org/abs/XXXX.XXXXX
+# Paper: https://arxiv.org/abs/2510.17650
 # Code: https://github.com/Bluesman79/ZACH-ViT
 # Licensed under Apache License 2.0
 # Author: Athanasios Angelakis
-# Date: 2025-10-13
+# Date: 2025-10-21
 # ==============================
 
 # ==============================
