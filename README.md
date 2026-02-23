@@ -14,7 +14,7 @@
 - Regime-spectrum evaluation across **7 MedMNIST** datasets (few-shot protocol)
 - Baselines + efficiency analysis (params / disk footprint / inference time)
 
-Unlike typical lightweight Vision Transformers focused primarily on parameter reduction, ZACH-ViT is designed to study how architectural inductive bias interacts with spatial structure regimes in medical imaging.
+ZACH-ViT should be interpreted less as a lightweight alternative to standard ViTs and more as an architectural probe for studying inductive-bias alignment under varying spatial-structure regimes.
 
 ---
 
