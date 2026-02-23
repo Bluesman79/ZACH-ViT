@@ -1,8 +1,39 @@
 [![PyPI version](https://img.shields.io/pypi/v/zachvit.svg)](https://pypi.org/project/zachvit/)
-[![arXiv](https://img.shields.io/badge/arXiv-2510.17650-b31b1b.svg)](https://arxiv.org/abs/2510.17650)
-[![DOI](https://img.shields.io/badge/DOI-10.48550%2FarXiv.2510.17650-blue)](https://doi.org/10.48550/arXiv.2510.17650)
+[![arXiv](https://img.shields.io/badge/arXiv-2602.17929-b31b1b.svg)](https://arxiv.org/abs/2602.17929)
+[![Project status](https://img.shields.io/badge/status-MedMNIST%20Edition-success.svg)]()
 
-# 🧩 ZACH-ViT: Zero-Token Adaptive Compact Hierarchical Vision Transformer with ShuffleStrides Data Augmentation (SSDA)
+
+# ZACH-ViT (MedMNIST Edition): Regime-Dependent Inductive Bias in Compact Vision Transformers
+
+**New arXiv preprint (Feb 2026):** *ZACH-ViT: Regime-Dependent Inductive Bias in Compact Vision Transformers for Medical Imaging*  
+➡️ arXiv: **2602.17929** (primary reference for this repository)  
+➡️ Code: this repository
+
+**What this repo provides (v2 / MedMNIST):**
+- ZACH-ViT: positional-embedding-free, [CLS]-free compact ViT (~0.25M params)
+- Regime-spectrum evaluation across **7 MedMNIST** datasets (few-shot protocol)
+- Baselines + efficiency analysis (params / disk footprint / inference time)
+
+---
+
+## Citation (preferred)
+If you use this code, please cite the MedMNIST paper:
+
+```bibtex
+@article{angelakis2026zachvit,
+  title={ZACH-ViT: Regime-Dependent Inductive Bias in Compact Vision Transformers for Medical Imaging},
+  author={Angelakis, Athanasios},
+  journal={arXiv preprint arXiv:2602.17929},
+  year={2026}
+}
+```
+
+⚠️ **Historical note:**  
+The sections below describe the earlier lung ultrasound pipeline and ShuffleStrides Data Augmentation (SSDA), which represent the original exploratory version of ZACH-ViT. The current canonical validation and conclusions are reported in arXiv:2602.17929.
+
+---
+
+# 🧩 Legacy Pipeline: Lung Ultrasound + SSDA (Exploratory Version)
 
 Official implementation of **ZACH-ViT**, a lightweight Vision Transformer for robust classification of lung ultrasound videos, and the **ShuffleStrides Data Augmentation (SSDA)** algorithm.  
 
@@ -221,8 +252,7 @@ Train / Val / Test Sets
 ZACH-ViT Training and Evaluation
 ```
 
-## 🧾 Citation
-If you use this work, please cite:
+## 🧾 Citation  (legacy exploratory manuscript)
 
 ```bibtex
 @article{angelakis2025zachvit,
